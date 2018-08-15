@@ -25,11 +25,27 @@
           - ????
         state: present
 
-- name: Generate Inventory Hosts File
+# - name: Generate Inventory Hosts File
+#  hosts: localhost
+#  tasks:
+#    - name: Generate Inventory script
+#      script: /root/ocp_advanced_deployment_homework/scripts/generate_inventory.sh
+
+- name: Generate Inventory Hosts File from template
   hosts: localhost
+  connection: local
+  become: false
+  vars_files:
+    - "./env_vars.yml"
+#  tags:
+#    - step005
   tasks:
-    - name: Generate Inventory script
-      script: /root/ocp_advanced_deployment_homework/scripts/generate_inventory.sh
+    - name: Generate /etc/ansible/hosts file with lab hosts template
+      template:
+        src: "hoststempl.j2"
+        dest: "generated_hosts"
+
+
 
 - name: Execute the openshift-ansible prerequisites
   import_playbook: ???
