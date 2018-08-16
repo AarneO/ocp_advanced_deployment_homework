@@ -1,0 +1,12 @@
+- name: Generate Inventory Hosts File from template
+  hosts: localhost
+  connection: local
+  become: false
+  vars_files:
+    - "./env_vars.yml"
+  tasks:
+    - name: Generate /etc/ansible/hosts file with lab hosts template
+      template:
+        backup: yes
+        src: "hoststempl.j2"
+        dest: "generated_hosts"

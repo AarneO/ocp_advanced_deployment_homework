@@ -15,15 +15,13 @@
   hosts: nfs
   tasks:
 
-- name: Install packages and config auth
-  hosts: localhost
-  tasks:
-    - name: required packages are present
-      yum:
-        name:
-          - ????
-          - ????
-        state: present
+#- name: Install packages and config auth
+#  hosts: localhost
+#  tasks:
+#    - name: required packages are present
+#      yum:
+#        name:
+#        state: present
 
 # - name: Generate Inventory Hosts File
 #  hosts: localhost
@@ -37,27 +35,23 @@
   become: false
   vars_files:
     - "./env_vars.yml"
-#  tags:
-#    - step005
   tasks:
     - name: Generate /etc/ansible/hosts file with lab hosts template
       template:
-        src: "hoststempl.j2"
-        dest: "generated_hosts"
-
+        src: "./hoststempl.j2"
+        dest: "./generated_hosts"
 
 
 - name: Execute the openshift-ansible prerequisites
-  import_playbook: ???
+#  import_playbook:
 
 - name: Execute the openshift-ansible Deployer
-  import_playbook: ???
+#  import_playbook: 
 
 - name: Verify OpenShift Cluster
-  hosts: masters[0]
-  tasks:
-    - name: copy the .kube directory from master1 to your bastion
-    ????
+#  hosts: masters[0]
+#  tasks:
+#    - name: copy the .kube directory from master1 to your bastion
 
 - name: Post installation configuration
   hosts: localhost
@@ -99,6 +93,3 @@
 - name: Assigning labels to the users according to its group
 
 - name: Setup the environment for Alpha and Beta clients
-
-
-  ....

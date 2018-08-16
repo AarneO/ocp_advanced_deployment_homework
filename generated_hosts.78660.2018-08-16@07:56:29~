@@ -5,7 +5,7 @@
 ###########################################################################
 timeout=60
 ansible_become=yes
-ansible_ssh_user={{ansible_ssh_user}}
+ansible_ssh_user=ec2-user
 
 ###########################################################################
 ### OpenShift Basic Vars
@@ -21,15 +21,15 @@ openshift_hosted_infra_selector="env=infra"
 ### OpenShift Master Vars
 ###########################################################################
 
-openshift_master_api_port={{master_api_port}}
-openshift_master_console_port={{master_api_port}}
+openshift_master_api_port=443
+openshift_master_console_port=443
 
 openshift_master_cluster_method=native
-openshift_master_cluster_hostname=loadbalancer1.{{guid}}.internal
-openshift_master_cluster_public_hostname={{master_lb_dns}}
-openshift_master_default_subdomain={{cloudapps_suffix}}
+openshift_master_cluster_hostname=loadbalancer1.7d30.internal
+openshift_master_cluster_public_hostname=loadbalancer1.7d30.example.opentlc.com
+openshift_master_default_subdomain=apps.7d30.example.opentlc.com
 #openshift_master_ca_certificate={'certfile': '/root/intermediate_ca.crt', 'keyfile': '/root/intermediate_ca.key'}
-openshift_master_overwrite_named_certificates={{openshift_master_overwrite_named_certificates}}
+openshift_master_overwrite_named_certificates=True
 
 # Set this line to enable NFS
 openshift_enable_unsupported_configurations=True
@@ -42,7 +42,7 @@ openshift_enable_unsupported_configurations=True
 #openshift_portal_net=172.30.0.0/16
 
 #os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
-{{multi_tenant_setting}}
+os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'
 
 ###########################################################################
 ### OpenShift Authentication Vars
@@ -105,7 +105,7 @@ openshift_hosted_etcd_storage_volume_size=10G
 ###########################################################################
 
 # Enable cluster metrics
-openshift_metrics_install_metrics={{install_metrics}}
+openshift_metrics_install_metrics=True
 
 openshift_metrics_storage_kind=nfs
 openshift_metrics_storage_access_modes=['ReadWriteOnce']
@@ -120,7 +120,7 @@ openshift_metrics_hawkular_nodeselector={"env":"infra"}
 openshift_metrics_heapster_nodeselector={"env":"infra"}
 
 # Enable cluster logging
-openshift_logging_install_logging={{install_logging}}
+openshift_logging_install_logging=True
 
 openshift_logging_storage_kind=nfs
 openshift_logging_storage_access_modes=['ReadWriteOnce']
@@ -130,7 +130,7 @@ openshift_logging_storage_volume_name=logging
 openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage': 'logging'}
 
-# openshift_logging_kibana_hostname=kibana.{{cloudapps_suffix}}
+# openshift_logging_kibana_hostname=kibana.apps.7d30.example.opentlc.com
 openshift_logging_es_cluster_size=1
 
 openshift_logging_es_nodeselector={"env":"infra"}
@@ -189,23 +189,23 @@ nfs
 #glusterfs
 
 [lb]
-loadbalancer1.{{guid}}.internal
+loadbalancer1.7d30.internal
 
 [masters]
-master1.{{guid}}.internal
-master2.{{guid}}.internal
-master3.{{guid}}.internal
+master1.7d30.internal
+master2.7d30.internal
+master3.7d30.internal
 
 [etcd]
-master1.{{guid}}.internal
-master2.{{guid}}.internal
-master3.{{guid}}.internal
+master1.7d30.internal
+master2.7d30.internal
+master3.7d30.internal
 
 [nodes]
 ## These are the masters
-master1.{{guid}}.internal openshift_hostname=master1.{{guid}}.internal  openshift_node_labels="{'env': 'master', 'cluster': '{{guid}}'}"
-master2.{{guid}}.internal openshift_hostname=master2.{{guid}}.internal  openshift_node_labels="{'env': 'master', 'cluster': '{{guid}}'}"
-master3.{{guid}}.internal openshift_hostname=master3.{{guid}}.internal  openshift_node_labels="{'env': 'master', 'cluster': '{{guid}}'}"
+master1.7d30.internal openshift_hostname=master1.7d30.internal  openshift_node_labels="{'env': 'master', 'cluster': '7d30'}"
+master2.7d30.internal openshift_hostname=master2.7d30.internal  openshift_node_labels="{'env': 'master', 'cluster': '7d30'}"
+master3.7d30.internal openshift_hostname=master3.7d30.internal  openshift_node_labels="{'env': 'master', 'cluster': '7d30'}"
 
 [nfs]
-support1.{{guid}}.internal openshift_hostname=support1.{{guid}}.internal
+support1.7d30.internal openshift_hostname=support1.7d30.internal
