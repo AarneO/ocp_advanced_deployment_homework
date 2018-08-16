@@ -15,19 +15,16 @@
   hosts: nfs
   tasks:
 
-#- name: Install packages and config auth
-#  hosts: localhost
-#  tasks:
-#    - name: required packages are present
-#      yum:
-#        name:
-#        state: present
+- name: Install packages and config auth
+  hosts: localhost
+  vars_files:
+    - "./env_vars.yml"
+  tasks:
+    - name: required packages are present
+      yum:
+        name: "{{ common_packages }}"
+        state: present
 
-# - name: Generate Inventory Hosts File
-#  hosts: localhost
-#  tasks:
-#    - name: Generate Inventory script
-#      script: /root/ocp_advanced_deployment_homework/scripts/generate_inventory.sh
 
 - name: Generate Inventory Hosts File from template
   hosts: localhost
@@ -38,8 +35,9 @@
   tasks:
     - name: Generate /etc/ansible/hosts file with lab hosts template
       template:
+        backup: yes
         src: "./hoststempl.j2"
-        dest: "./generated_hosts"
+        dest: "/etc/ansible/hosts"
 
 
 - name: Execute the openshift-ansible prerequisites
