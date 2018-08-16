@@ -8,5 +8,5 @@
     - name: Generate /etc/ansible/hosts file with lab hosts template
       template:
         backup: yes
-        src: "hoststempl.j2"
-        dest: "generated_hosts"
+        src: "./hoststempl.j2"
+        dest: "/etc/ansible/hosts"
