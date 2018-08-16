@@ -207,5 +207,14 @@ master1.{{guid}}.internal openshift_hostname=master1.{{guid}}.internal  openshif
 master2.{{guid}}.internal openshift_hostname=master2.{{guid}}.internal  openshift_node_labels="{'env': 'master', 'cluster': '{{guid}}'}"
 master3.{{guid}}.internal openshift_hostname=master3.{{guid}}.internal  openshift_node_labels="{'env': 'master', 'cluster': '{{guid}}'}"
 
+## These are infranodes
+infranode1.{{guid}}.internal openshift_hostname=infranode1.{{guid}}.internal  openshift_node_labels="{'env':'infra', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
+infranode2.{{guid}}.internal openshift_hostname=infranode2.{{guid}}.internal  openshift_node_labels="{'env':'infra', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
+
+## These are regular nodes
+node1.GUID.internal openshift_hostname=node1.{{guid}}.internal  openshift_node_labels="{'env':'app', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
+node2.GUID.internal openshift_hostname=node2.{{guid}}.internal  openshift_node_labels="{'env':'app', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
+node3.GUID.internal openshift_hostname=node3.{{guid}}.internal  openshift_node_labels="{'env':'app', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
+
 [nfs]
 support1.{{guid}}.internal openshift_hostname=support1.{{guid}}.internal
