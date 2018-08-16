@@ -47,9 +47,13 @@
 #  import_playbook: 
 
 - name: Verify OpenShift Cluster
-#  hosts: masters[0]
-#  tasks:
-#    - name: copy the .kube directory from master1 to your bastion
+  hosts: masters[0]
+  tasks:
+    - name: copy the .kube directory from master1 to your bastion
+    - fetch: 
+      src= "/root/.kube/config"
+      dest= "/root/.kube/config"
+      flat= "yes"
 
 - name: Post installation configuration
   hosts: localhost
@@ -57,18 +61,41 @@
     - name: make sure you are system:dmin
       shell: oc whoami | grep system:admin
 
+▽
 - name: Create PVs for Users
   hosts: nfs
   tasks:
-    - name:
-      script: ????
-    - name: Restarting NFS Server...
-      shell: systemctl restart nfs-server
+    - file:
+        dest: "/srv/nfs/user-vols/pv{{ item }}"
+        state: directory
+      with_sequence: start=1 end=50 stride=1
+    - lineinfile:
+        path: /etc/exports.d/openshift-uservols.exports
+        line: "/srv/nfs/user-vols/pv{{ item }} *(rw,root_squash)"
+        create: yes
+      with_sequence: start=1 end=50 stride=1
+    - systemd:
+        state: restarted
+        daemon_reload: yes
+        name: nfs-server
+    - file:
+        path: /srv/nfs
+        state: directory
+        owner: nfsnobody
+        group: nfsnobody
+        mode: 0777
+        recurse: yes
+~
 
 - name: Create 25 definitions files for PVs 5G size
-  hosts: localhost
+
 
 - name: Create 25 definitions files for PVs 10G size
+  hosts: nfs
+   - file:
+     dest: "/srv/nfs/user-vols/pv{{ item }}"
+     state: directory
+     with_sequence: start=26 end=50 stride=1
 
 - name: Create all PVs from definitions files
 
