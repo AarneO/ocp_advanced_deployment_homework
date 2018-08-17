@@ -110,7 +110,7 @@
   hosts: localhost
   tasks:
     - name: "create def files for 10G PVs"
-        shell: "./scripts/pvs_10Gsize.sh"
+      shell: "./scripts/pvs_10Gsize.sh"
   tags:
     - postinst
 
@@ -118,7 +118,7 @@
   hosts: localhost
   tasks:
     - name: "import files"
-        shell: "cat /root/pvs/* | oc create -f -"
+      shell: "cat /root/pvs/* | oc create -f -"
   tags:
     - postinst
 
