@@ -99,25 +99,25 @@
     - postinst
 
 - name: Create 25 definitions files for PVs 5G size
-    hosts: localhost
-    tasks:
-      - name: "create def files for 5G PVs"
+  hosts: localhost
+  tasks:
+    - name: "create def files for 5G PVs"
         shell: "./scripts/pvs_5Gsize.sh"
   tags:
     - postinst
 
 - name: Create 25 definitions files for PVs 10G size
-    hosts: localhost
-    tasks:
-      - name: "create def files for 10G PVs"
+  hosts: localhost
+  tasks:
+    - name: "create def files for 10G PVs"
         shell: "./scripts/pvs_10Gsize.sh"
   tags:
     - postinst
 
 - name: Create all PVs from definitions files
-    hosts: localhost
-    tasks:
-      - name: "import files"
+  hosts: localhost
+  tasks:
+    - name: "import files"
         shell: "cat /root/pvs/* | oc create -f -"
   tags:
     - postinst
