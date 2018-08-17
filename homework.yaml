@@ -11,19 +11,19 @@
     - name: docker restart
       shell: systemctl restart docker
 
-- name: Verify NFS Shared Volumes on Hosts
-  hosts: nfs
-  tasks:
+#- name: Verify NFS Shared Volumes on Hosts
+#  hosts: nfs
+#  tasks:
 
-- name: Install packages and config auth
-  hosts: localhost
-  vars_files:
-    - "./env_vars.yml"
-  tasks:
-    - name: required packages are present
-      yum:
-        name: "{{ common_packages }}"
-        state: present
+#- name: Install packages and config auth
+#  hosts: localhost
+#  vars_files:
+#    - "./env_vars.yml"
+#  tasks:
+#    - name: required packages are present
+#      yum:
+#        name: "{{ common_packages }}"
+#        state: present
 
 
 - name: Generate Inventory Hosts File from template
@@ -130,7 +130,7 @@
 
   tags:
     - postinst
-    
+
 - name: Smoke Test
 
 #- name: Jenkins Setup
