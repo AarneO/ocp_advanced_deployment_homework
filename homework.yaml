@@ -125,13 +125,13 @@
 - name: Fix NFS Persistent Volume Recycling
   hosts: nodes
   tasks:
-    - name: "fix commands for"
+    - name: "fix commands for NFS persistent volume recycling"
       shell: "docker pull registry.access.redhat.com/openshift3/ose-recycler:latest && docker tag registry.access.redhat.com/openshift3/ose-recycler:latest registry.access.redhat.com/openshift3/ose-recycler:v3.9.30"
 
   tags:
     - postinst
 
-- name: Smoke Test
+#- name: Smoke Test
 
 #- name: Jenkins Setup
 #  hosts: localhost
@@ -139,12 +139,12 @@
 #    - name: jenkins setup
 #      script: ???
 
-- name: HPA configuration on production deployment of openshift-tasks
-  hosts: localhost
+#- name: HPA configuration on production deployment of openshift-tasks
+#  hosts: localhost
 #  tasks:
 
-- name: Creation of users for Alpha and Beta clients
+#- name: Creation of users for Alpha and Beta clients
 
-- name: Assigning labels to the users according to its group
+#- name: Assigning labels to the users according to its group
 
-- name: Setup the environment for Alpha and Beta clients
+#- name: Setup the environment for Alpha and Beta clients
