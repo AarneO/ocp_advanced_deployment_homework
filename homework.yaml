@@ -88,30 +88,41 @@
 ~
 
 - name: Create 25 definitions files for PVs 5G size
+    hosts: localhost
+    tasks:
+      - name: "create def files for 5G PVs"
+        shell: "./scripts/pvs_5Gsize.sh"
 
 
 - name: Create 25 definitions files for PVs 10G size
-  hosts: nfs
-   - file:
-     dest: "/srv/nfs/user-vols/pv{{ item }}"
-     state: directory
-     with_sequence: start=26 end=50 stride=1
-
+    hosts: localhost
+    tasks:
+      - name: "create def files for 10G PVs"
+        shell: "./scripts/pvs_10Gsize.sh"
+  
 - name: Create all PVs from definitions files
+    hosts: localhost
+    tasks:
+      - name: "import files"
+        shell: "cat /root/pvs/* | oc create -f -"
 
 - name: Fix NFS Persistent Volume Recycling
+  hosts: nodes
+  tasks:
+    - name: "fix commands for"
+      shell: "docker pull registry.access.redhat.com/openshift3/ose-recycler:latest && docker tag registry.access.redhat.com/openshift3/ose-recycler:latest registry.access.redhat.com/openshift3/ose-recycler:v3.9.30"
 
 - name: Smoke Test
 
-- name: Jenkins Setup
-  hosts: localhost
-  tasks:
-    - name: jenkins setup
-      script: ???
+#- name: Jenkins Setup
+#  hosts: localhost
+#  tasks:
+#    - name: jenkins setup
+#      script: ???
 
 - name: HPA configuration on production deployment of openshift-tasks
   hosts: localhost
-  tasks:
+#  tasks:
 
 - name: Creation of users for Alpha and Beta clients
 
