@@ -58,9 +58,9 @@
   tasks:
     - name: copy the .kube directory from master1 to your bastion
     - fetch: 
-      src= "/root/.kube/config"
-      dest= "/root/.kube/config"
-      flat= "yes"
+      src: "/root/.kube/config"
+      dest: "/root/.kube/config"
+      flat: "yes"
   tags:
     - postinst
 
