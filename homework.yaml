@@ -39,12 +39,19 @@
         src: "./hoststempl.j2"
         dest: "/etc/ansible/hosts"
 
+  tags:
+    - config
+
 
 - name: Execute the openshift-ansible prerequisites
-#  import_playbook:
+  import_playbook: /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
+  tags:
+    - install
 
 - name: Execute the openshift-ansible Deployer
-#  import_playbook: 
+  import_playbook: /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
+  tags:
+    - install
 
 - name: Verify OpenShift Cluster
   hosts: masters[0]
@@ -54,14 +61,17 @@
       src= "/root/.kube/config"
       dest= "/root/.kube/config"
       flat= "yes"
+  tags:
+    - postinst
 
 - name: Post installation configuration
   hosts: localhost
   tasks:
     - name: make sure you are system:dmin
       shell: oc whoami | grep system:admin
+  tags:
+    - postinst
 
-▽
 - name: Create PVs for Users
   hosts: nfs
   tasks:
@@ -85,26 +95,32 @@
         group: nfsnobody
         mode: 0777
         recurse: yes
-~
+  tags:
+    - postinst
 
 - name: Create 25 definitions files for PVs 5G size
     hosts: localhost
     tasks:
       - name: "create def files for 5G PVs"
         shell: "./scripts/pvs_5Gsize.sh"
-
+  tags:
+    - postinst
 
 - name: Create 25 definitions files for PVs 10G size
     hosts: localhost
     tasks:
       - name: "create def files for 10G PVs"
         shell: "./scripts/pvs_10Gsize.sh"
-  
+  tags:
+    - postinst
+
 - name: Create all PVs from definitions files
     hosts: localhost
     tasks:
       - name: "import files"
         shell: "cat /root/pvs/* | oc create -f -"
+  tags:
+    - postinst
 
 - name: Fix NFS Persistent Volume Recycling
   hosts: nodes
@@ -112,6 +128,9 @@
     - name: "fix commands for"
       shell: "docker pull registry.access.redhat.com/openshift3/ose-recycler:latest && docker tag registry.access.redhat.com/openshift3/ose-recycler:latest registry.access.redhat.com/openshift3/ose-recycler:v3.9.30"
 
+  tags:
+    - postinst
+    
 - name: Smoke Test
 
 #- name: Jenkins Setup
