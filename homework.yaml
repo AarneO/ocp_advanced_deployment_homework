@@ -102,7 +102,7 @@
   hosts: localhost
   tasks:
     - name: "create def files for 5G PVs"
-        shell: "./scripts/pvs_5Gsize.sh"
+      shell: "./scripts/pvs_5Gsize.sh"
   tags:
     - postinst
 
