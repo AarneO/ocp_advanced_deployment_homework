@@ -7,27 +7,6 @@
   tags:
     - config
 
-#- name: Verify Installation and Configuration of Docker
-#  hosts: nodes
-#  tasks:
-#    - name: docker restart
-#      shell: systemctl restart docker
-
-#- name: Verify NFS Shared Volumes on Hosts
-#  hosts: nfs
-#  tasks:
-
-#- name: Install packages and config auth
-#  hosts: localhost
-#  vars_files:
-#    - "./env_vars.yml"
-#  tasks:
-#    - name: required packages are present
-#      yum:
-#        name: "{{ common_packages }}"
-#        state: present
-
-
 - name: Generate Inventory Hosts File from template
   hosts: localhost
   connection: local
@@ -138,7 +117,7 @@
   tasks:
     - name: "Smoke testing with nodejs app"
       shell: "oc new-project smoke-test && oc new-app nodejs-mongo-persistent"
-      
+
   tags:
     - smoketest
 
