@@ -4,12 +4,14 @@
   tasks:
     - name: All GUID env variable
       shell: export GUID=`hostname | cut -d"." -f2`; echo "export GUID=$GUID" >> $HOME/.bashrc
+  tags:
+    - config
 
-- name: Verify Installation and Configuration of Docker
-  hosts: nodes
-  tasks:
-    - name: docker restart
-      shell: systemctl restart docker
+#- name: Verify Installation and Configuration of Docker
+#  hosts: nodes
+#  tasks:
+#    - name: docker restart
+#      shell: systemctl restart docker
 
 #- name: Verify NFS Shared Volumes on Hosts
 #  hosts: nfs
