@@ -133,7 +133,14 @@
   tags:
     - postinst
 
-#- name: Smoke Test
+- name: Smoke Test
+  hosts: localhost
+  tasks:
+    - name: "Smoke testing with nodejs app"
+      shell: "oc new-project smoke-test && oc new-app nodejs-mongo-persistent"
+      
+  tags:
+    - smoketest
 
 #- name: Jenkins Setup
 #  hosts: localhost
