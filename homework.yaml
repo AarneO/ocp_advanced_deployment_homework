@@ -131,9 +131,9 @@
   hosts: localhost
   tasks:
     - git:
-      repo: 'https://github.com/AarneO/openshift-cd-demo.git'
-      dest: /root/openshift-cd-demo
-      version: ocp-3.9
+        repo: 'https://github.com/AarneO/openshift-cd-demo.git'
+        dest: /root/openshift-cd-demo
+        version: ocp-3.9
   tags:
     - cicd
 
