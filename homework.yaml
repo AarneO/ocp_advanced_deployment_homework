@@ -140,7 +140,7 @@
   hosts: localhost
   tasks:
     - name: "Provision demo environment"
-      shell: "/root/openshift-cd-demo/provision.sh --user andrew deploy --project-suffix aarnedemo"
+      shell: "/root/openshift-cd-demo/provision.sh --user andrew deploy --project-suffix homeworkdemo"
   tags:
     - cicd
 
@@ -148,7 +148,7 @@
   hosts: localhost
   tasks:
     - name: "Execute pipeline"
-      shell: "oc start-build tasks-pipeline -n cicd-aarnedemo"
+      shell: "oc start-build tasks-pipeline -n cicd-homeworkdemo"
   tags:
     - cicd
   
