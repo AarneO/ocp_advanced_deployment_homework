@@ -130,7 +130,7 @@
 - name: CICD demo git
   hosts: localhost
   tasks:
-    git:
+    - git:
       repo: 'https://github.com/AarneO/openshift-cd-demo.git'
       dest: /root/openshift-cd-demo
       version: ocp-3.9
