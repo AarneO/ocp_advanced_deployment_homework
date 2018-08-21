@@ -141,7 +141,7 @@
   hosts: localhost
   tasks:
     - name: "Provision demo environment"
-      shell: "/root/openshift-cd-demo/provision.sh --user andrew deploy --project-suffix homeworkdemo"
+      shell: "/root/openshift-cd-demo/scripts/provision.sh --user andrew deploy --project-suffix homeworkdemo"
   tags:
     - cicd
 
