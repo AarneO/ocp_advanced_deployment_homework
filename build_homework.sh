@@ -9,7 +9,3 @@ echo ""
 ansible-playbook -e "guid=$GUID" homework.yaml --tags "config"
 echo "Starting OpenShift deployment"
 ansible-playbook -e "guid=$GUID" homework.yaml --skip-tags "config"
-echo ""
-smoketest=$(oc get route |grep nodejs-mongo | awk '{print $2}')
-echo "Smoke test URL can be found http://$smoketest"
-echo ""
