@@ -189,12 +189,8 @@
   hosts: localhost
   tasks:
     - name: "create $user hash"
-      shell: "htpasswd -bn {{ user }} {{ pass}} "
+      shell: "htpasswd -n /root/htpasswd.openshift {{ user }} {{ pass}} "
       register: userhash
-
-    - name: add user to htpasswd
-      shell: "echo {{ userhash.stdout }} >> /root/htpasswd.openshift"
-      register: htpasswdopenshift
 
   tags:
     - useradd
@@ -206,7 +202,7 @@
       copy:
         src: /root/htpasswd.openshift
         dst: /etc/origin/master/htpasswd
-      when: htpasswdopenshift.changed
+      when: userhash.changed
 
   tags:
     - useradd
