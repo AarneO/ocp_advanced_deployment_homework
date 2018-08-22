@@ -193,7 +193,7 @@
       register: userhash
 
     - name: add user to htpasswd
-      shell: "echo {{ userhash }} >> /root/htpasswd.openshift"
+      shell: "echo {{ userhash.stdout }} >> /root/htpasswd.openshift"
       register: htpasswdopenshift
 
   tags:
