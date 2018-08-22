@@ -112,6 +112,36 @@
   tags:
     - postinst
 
+- name: Apply default limits to projects
+  hosts: localhost
+  tasks:
+    - name: "apply default project template"
+      shell: "oc create -f ./templates/project-template.yml -n default"
+  tags:
+    - projectconfig
+
+- name: Change master configs to new project template
+  hosts: masters
+  tasks:
+    - name: "modify master-config.yaml"
+      lineinfile:
+        regexp: "  projectRequestTemplate"
+        dest: "/etc/origin/master/master-config.yaml"
+        line: '  projectRequestTemplate: "default/project-request"'
+        state: present
+      register: master_config
+   
+   - name: Restart master API service
+      service:
+        name: atomic-openshift-master-api
+        state: restarted
+      when:
+        - master_config.changed
+  tags:
+    - projectconfig
+
+
+
 - name: Smoke Test
   hosts: localhost
   tasks:
