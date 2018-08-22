@@ -116,7 +116,7 @@
   hosts: localhost
   tasks:
     - name: "apply default project template"
-      shell: "oc create -f ./templates/project-template.yml -n default"
+      shell: "oc create -f ./templates/project-template.yaml -n default"
   tags:
     - projectconfig
 
