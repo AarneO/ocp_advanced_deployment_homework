@@ -199,7 +199,7 @@
     - name: sync file to all hosts
       copy:
         src: /root/htpasswd.openshift
-        dst: /etc/origin/master/htpasswd
+        dest: /etc/origin/master/htpasswd
   tags:
     - useradd
 
