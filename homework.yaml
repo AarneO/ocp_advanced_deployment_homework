@@ -189,7 +189,7 @@
   hosts: localhost
   tasks:
     - name: "create $user hash"
-      shell: "htpasswd -n /root/htpasswd.openshift {{ user }} {{ pass}} "
+      shell: "htpasswd -b /root/htpasswd.openshift {{ user }} {{ pass}} "
       register: userhash
 
   tags:
