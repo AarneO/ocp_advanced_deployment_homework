@@ -194,7 +194,7 @@
 
     - name: add user to htpasswd
       shell: "echo {{ userhash }} >> /root/htpasswd.openshift"
-      register: htpasswd_openshift
+      register: htpasswdopenshift
 
   tags:
     - useradd
@@ -206,7 +206,7 @@
       copy:
         src: /root/htpasswd.openshift
         dst: /etc/origin/master/htpasswd
-      when: htpasswd_openshift.changed
+      when: htpasswdopenshift.changed
 
   tags:
     - useradd
