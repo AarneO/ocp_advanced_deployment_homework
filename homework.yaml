@@ -185,6 +185,32 @@
   tags:
     - cicd
 
+- name: Add user based on parameters
+  hosts: localhost
+  tasks:
+    - name: "create $user hash"
+      shell: "htpasswd -bn /root/htpasswd.openshift {{ user }}"
+      register: userhash
+
+    - name: add user to htpasswd
+      shell: "echo {{ userhash }} >> /root/htpasswd.openshift"
+      register: htpasswd_openshift
+
+  tags:
+    - useradd
+
+- name: sync htpasswd file
+  hosts: masters
+  tasks:
+    - name: sync file to all hosts
+      copy:
+        src: /root/htpasswd.openshift
+        dst: /etc/origin/master/htpasswd
+      when: htpasswd_openshift.changed
+
+  tags:
+    - useradd
+
 #- name: Creation of users for Alpha and Beta clients
 
 #- name: Assigning labels to the users according to its group
