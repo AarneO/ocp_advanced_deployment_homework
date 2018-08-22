@@ -130,8 +130,8 @@
         line: '  projectRequestTemplate: "default/project-request"'
         state: present
       register: master_config
-   
-   - name: Restart master API service
+
+    - name: Restart master API service
       service:
         name: atomic-openshift-master-api
         state: restarted
