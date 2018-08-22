@@ -177,12 +177,13 @@
   tags:
     - cicd
   
-
-#- name: HPA configuration on production deployment of openshift-tasks
-#  hosts: localhost
-#  tasks:
-# oc autoscale dc/tasks -n stage-aarnedemo --min 1 --max 10 --cpu-percent=50
-# curl -X GET http://{tasks_route}/ws/demo/load/5
+- name: HPA configuration on production deployment of openshift-tasks
+  hosts: localhost
+  tasks:
+    - name: "Add autoscaling to deploymentconfig of prod tasks"
+      shell: "oc autoscale dc/tasks -n stage-homeworkdemo --min 1 --max 10 --cpu-percent=70"
+  tags:
+    - cicd
 
 #- name: Creation of users for Alpha and Beta clients
 
