@@ -208,14 +208,6 @@
 #- name: Assigning labels to the users according to its group
 
 #- name: Setup the environment for Alpha and Beta clients
-
-    PodNodeSelector:
-      configuration:
-        podNodeSelectorPluginConfig:
-          clusterDefaultNodeSelector: "env=app"
-          alpha: client=alpha
-          beta: client=beta
-
 # [root@master1 ~]# systemctl restart atomic-openshift-master-controllers.service
 # oc adm policy add-role-to-user admin andrew
 # oc patch namespace beta -p '{"metadata":{"annotations":{"openshift.io/node-selector":"client=beta"}}}'
