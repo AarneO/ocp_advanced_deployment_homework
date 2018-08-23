@@ -95,7 +95,6 @@ ansible_ssh_user: ec2-user
 remote_user: ec2-user
 
 #### Networking (AWS)
-guid: 7d30
 subdomain_base_short: "{{ guid }}"
 subdomain_base_suffix: ".example.opentlc.com"
 subdomain_base: "{{subdomain_base_short}}{{subdomain_base_suffix}}"
