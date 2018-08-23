@@ -146,7 +146,7 @@
   hosts: localhost
   tasks:
     - name: "Smoke testing with nodejs app"
-      shell: "oc new-project smoke-test22 && oc new-app nodejs-mongo-persistent"
+      shell: "oc new-project smoke-test && oc new-app nodejs-mongo-persistent"
 
   tags:
     - smoketest
@@ -210,4 +210,4 @@
 #- name: Setup the environment for Alpha and Beta clients
 # [root@master1 ~]# systemctl restart atomic-openshift-master-controllers.service
 # oc adm policy add-role-to-user admin andrew
-# oc patch namespace beta -p '{"metadata":{"annotations":{"openshift.io/node-selector":"client=beta"}}}'
+# oc patch namespace alpha -p '{"metadata":{"annotations":{"openshift.io/node-selector":"client=alpha"}}}'
