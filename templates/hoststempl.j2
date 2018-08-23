@@ -14,7 +14,7 @@ deployment_type=openshift-enterprise
 openshift_disable_check="memory_availability"
 
 # Default node selectors
-osm_default_node_selector='env=app'
+osm_default_node_selector='client=common'
 openshift_hosted_infra_selector="env=infra"
 
 ###########################################################################
@@ -177,6 +177,9 @@ openshift_prometheus_alertbuffer_storage_type='pvc'
 # Necessary because of a bug in the installer on 3.9
 openshift_prometheus_node_exporter_image_version=v3.9
 
+# Configure admission control nodeselector os_sdn_network_plugin_name
+openshift_master_admission_plugin_config={"PodNodeSelector":{"configuration":{"podNodeSelectorPluginConfig":{"alpha": "client=alpha", "beta": "client=beta", "common": "client=common"}}}}
+
 ###########################################################################
 ### OpenShift Hosts
 ###########################################################################
@@ -212,9 +215,9 @@ infranode1.{{guid}}.internal openshift_hostname=infranode1.{{guid}}.internal  op
 infranode2.{{guid}}.internal openshift_hostname=infranode2.{{guid}}.internal  openshift_node_labels="{'env':'infra', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
 
 ## These are regular nodes
-node1.{{guid}}.internal openshift_hostname=node1.{{guid}}.internal  openshift_node_labels="{'env':'app', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
-node2.{{guid}}.internal openshift_hostname=node2.{{guid}}.internal  openshift_node_labels="{'env':'app', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
-node3.{{guid}}.internal openshift_hostname=node3.{{guid}}.internal  openshift_node_labels="{'env':'app', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
+node1.{{guid}}.internal openshift_hostname=node1.{{guid}}.internal  openshift_node_labels="{'client':'alpha', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
+node2.{{guid}}.internal openshift_hostname=node2.{{guid}}.internal  openshift_node_labels="{'client':'beta', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
+node3.{{guid}}.internal openshift_hostname=node3.{{guid}}.internal  openshift_node_labels="{'client':'common', 'cluster': '{{guid}}', 'zone': 'eu-central-1a'}"
 
 [nfs]
 support1.{{guid}}.internal openshift_hostname=support1.{{guid}}.internal

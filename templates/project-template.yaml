@@ -35,6 +35,7 @@ objects:
       openshift.io/description: ${PROJECT_DESCRIPTION}
       openshift.io/display-name: ${PROJECT_DISPLAYNAME}
       openshift.io/requester: ${PROJECT_REQUESTING_USER}
+      openshift.io/node-selector: ${PROJECT_NODESELECTOR}
     creationTimestamp: null
     name: ${PROJECT_NAME}
   spec: {}
@@ -101,3 +102,4 @@ parameters:
 - name: PROJECT_DESCRIPTION
 - name: PROJECT_ADMIN_USER
 - name: PROJECT_REQUESTING_USER
+- name: PROJECT_NODESELECTOR

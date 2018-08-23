@@ -17,7 +17,7 @@
     - name: Generate /etc/ansible/hosts file with lab hosts template
       template:
         backup: yes
-        src: "./hoststempl.j2"
+        src: "./templates/hoststempl.j2"
         dest: "/etc/ansible/hosts"
 
   tags:
@@ -146,7 +146,7 @@
   hosts: localhost
   tasks:
     - name: "Smoke testing with nodejs app"
-      shell: "oc new-project smoke-test && oc new-app nodejs-mongo-persistent"
+      shell: "oc new-project smoke-test22 && oc new-app nodejs-mongo-persistent"
 
   tags:
     - smoketest
@@ -208,3 +208,14 @@
 #- name: Assigning labels to the users according to its group
 
 #- name: Setup the environment for Alpha and Beta clients
+
+    PodNodeSelector:
+      configuration:
+        podNodeSelectorPluginConfig:
+          clusterDefaultNodeSelector: "env=app"
+          alpha: client=alpha
+          beta: client=beta
+
+# [root@master1 ~]# systemctl restart atomic-openshift-master-controllers.service
+# oc adm policy add-role-to-user admin andrew
+# oc patch namespace beta -p '{"metadata":{"annotations":{"openshift.io/node-selector":"client=beta"}}}'
