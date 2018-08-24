@@ -13,7 +13,7 @@ then
 fi
 
 oc new-project $1
-oc patch namespace $1 -p '{"metadata":{"annotations":{"openshift.io/node-selector":"client=$2"}}}'
+oc patch namespace $1 -p \'{"metadata":{"annotations":{"openshift.io/node-selector":"client=$2"}}}\'
 if [ "$?" -eq 0 ]
 then
  echo "Project created, happy deployments"
