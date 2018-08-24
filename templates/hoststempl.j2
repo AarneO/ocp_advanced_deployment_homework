@@ -178,7 +178,7 @@ openshift_prometheus_alertbuffer_storage_type='pvc'
 openshift_prometheus_node_exporter_image_version=v3.9
 
 # Configure admission control nodeselector os_sdn_network_plugin_name
-openshift_master_admission_plugin_config={"PodNodeSelector":{"configuration":{"podNodeSelectorPluginConfig":{"alpha": "client=alpha", "beta": "client=beta", "common": "client=common"}}}}
+openshift_master_admission_plugin_config={"PodNodeSelector":{"configuration":{"podNodeSelectorPluginConfig":{"alpha": "client=alpha", "beta": "client=beta", "common": "client=common"}}},"ProjectRequestLimit":{"configuration":{"apiVersion":"v1","kind":"ProjectRequestLimitConfig","limits":[{"selector": {"client":"alpha","maxProjects":"4"}}, {"selector":{"client":"beta","maxProjects": "4"}}, {"selector":{"client":"common","maxProjects": "10"}} ]}}}
 
 ###########################################################################
 ### OpenShift Hosts
