@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Template
+metadata:
+  creationTimestamp: null
+  name: user-request
+
+apiVersion: v1
+items:
+- apiVersion: v1
+  groups: null
+  identities:
+  - htpasswd_auth:${USER_USERNAME}
+  kind: User
+  metadata:
+    labels:
+      client: ${USER_LABEL}
+    name: ${USER_USERNAME}
+    namespace: ""
+
+parameters:
+- name: USER_USERNAME
+- name: USER_LABEL
