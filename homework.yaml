@@ -177,7 +177,7 @@
     - name: "run project creation for beta"
       shell: "./scripts/create_project.sh betacorp beta"
     - name: "run project creation for common"
-      shell:  "./scripts/create_project.sh project1 common"
+      shell:  "./scripts/create_project.sh commonproject common"
   tags:
    - postproject
 
