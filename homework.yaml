@@ -165,9 +165,35 @@
   hosts: localhost
   tasks:
     - name: "Provision demo environment"
-      shell: "/root/openshift-cd-demo/scripts/provision.sh --user andrew deploy --project-suffix homeworkdemo"
+      shell: "/root/openshift-cd-demo/scripts/provision.sh --user user100 deploy --project-suffix homeworkdemo"
   tags:
     - cicd
+
+- name: Creation of projects for Alpha and Beta clients
+  hosts: localhost
+  tasks:
+    - name: "run project creation for alpha"
+      shell: "./scripts/create_project.sh alphacorp alpha"
+    - name: "run project creation for beta"
+      shell: "./scripts/create_project.sh betacorp beta"
+    - name: "run project creation for common"
+      shell:  "./scripts/create_project.sh project1 common"
+  tags:
+   - postproject
+
+- name: Creation of users for Alpha and Beta clients
+  hosts: localhost
+  tasks:
+    - name: "run user creation for alpha"
+      shell: "./scripts/create_user.sh amy alpha"
+    - name: "run user creation for alpha"
+      shell: "./scripts/create_user.sh andrew alpha"
+    - name: "run user creation for beta"
+      shell: "./scripts/create_user.sh brian beta"
+    - name: "run user creation for beta"
+      shell: "./scripts/create_user.sh betty beta"
+  tags:
+   - postproject
 
 - name: CICD pipeline start
   hosts: localhost
@@ -175,32 +201,5 @@
     - name: "Execute pipeline"
       shell: "oc start-build tasks-pipeline -n cicd-homeworkdemo"
   tags:
-    - cicd
+    - postproject
 
-- name: Add user based on parameters
-  hosts: localhost
-  tasks:
-    - name: "create $user hash"
-      shell: "htpasswd -b /root/htpasswd.openshift {{ user }} {{ pass}}"
-  tags:
-    - useradd
-
-- name: sync htpasswd file
-  hosts: masters
-  tasks:
-    - name: sync file to all hosts
-      copy:
-        src: /root/htpasswd.openshift
-        dest: /etc/origin/master/htpasswd
-  tags:
-    - useradd
-
-#- name: Creation of users for Alpha and Beta clients
-
-#- name: Assigning labels to the users according to its group
-
-#- name: Setup the environment for Alpha and Beta clients
-# [root@master1 ~]# systemctl restart atomic-openshift-master-controllers.service
-# oc adm policy add-role-to-user admin andrew
-# oc patch namespace alpha -p '{"metadata":{"annotations":{"openshift.io/node-selector":"client=alpha"}}}'
-# openshift.selector("dc", "tasks").autoscale([ min: '1', max: '10', cpu-percent: '70']);
