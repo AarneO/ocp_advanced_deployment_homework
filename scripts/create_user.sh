@@ -14,7 +14,7 @@ then
 fi
 
 # Fixing the given htpasswd file (no line change in the end)
-if [ -e "/root/htpasswd.openshift.fixed" ]; then
+if [ ! -e "/root/htpasswd.openshift.fixed" ]; then
 
 for passwdline in $(cat /root/htpasswd.openshift)
 do
