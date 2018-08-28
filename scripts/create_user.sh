@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export GUID=`hostname|awk -F. '{print $2}'`
 
 usage ()
 {
