@@ -185,13 +185,13 @@
   hosts: localhost
   tasks:
     - name: "run user creation for alpha"
-      shell: "./scripts/create_user.sh amy alpha"
+      shell: "./scripts/create_user.sh amy alpha && oc adm policy add-role-to-user admin amy -n alphacorp"
     - name: "run user creation for alpha"
-      shell: "./scripts/create_user.sh andrew alpha"
+      shell: "./scripts/create_user.sh andrew alpha && oc adm policy add-role-to-user admin andrew -n alphacorp"
     - name: "run user creation for beta"
-      shell: "./scripts/create_user.sh brian beta"
+      shell: "./scripts/create_user.sh brian beta && oc adm policy add-role-to-user admin brian -n betacorp"
     - name: "run user creation for beta"
-      shell: "./scripts/create_user.sh betty beta"
+      shell: "./scripts/create_user.sh betty beta && oc adm policy add-role-to-user admin betty -n betacorp"
   tags:
    - postproject
 
