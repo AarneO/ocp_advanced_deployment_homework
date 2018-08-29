@@ -14,4 +14,5 @@ echo ""
 echo "Check the results:"
 echo "OpenShift Web Console: https://loadbalancer1.$GUID.example.opentlc.com:8443/"
 echo "Smoke test application: http://$(oc get route -n smoke-test |grep opentlc.com |awk '{print $2}')"
-echo "Prod application in CI/CD Pipeline: http://$(oc get route -n stage-homeworkdemo |grep opentlc.com |awk '{print $2}')"
+echo "Prod application in CI/CD Pipeline created under user user100, please log in to console to check pipeline status"
+
